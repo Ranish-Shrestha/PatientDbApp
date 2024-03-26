@@ -1,0 +1,16 @@
+CREATE DATABASE PatientRecords;
+
+CREATE TABLE `patientrecords`.`patients` (
+  `Patientid` INT NOT NULL,
+  `Name` VARCHAR(65) NOT NULL,
+  `Contact` VARCHAR(65) NOT NULL,
+  `Region` VARCHAR(65) NOT NULL,
+  `Disease` VARCHAR(65) NOT NULL,
+  `VisitDate` DATE NOT NULL DEFAULT (Current_Date),
+  PRIMARY KEY (`Patientid`));
+
+INSERT INTO `patientrecords`.`patients` (`Patientid`, `Name`, `Contact`, `Region`, `Disease`) VALUES (1, 'Sumana KC', '123-456-7788', 'Brampton', 'Heart Disease');
+INSERT INTO `patientrecords`.`patients` (`Patientid`, `Name`, `Contact`, `Region`, `Disease`, `VisitDate`) VALUES (2, 'Mosh Rowling', '678-895-7896', 'Toronto', 'UTI', '2024-01-15');
+INSERT INTO `patientrecords`.`patients` (`Patientid`, `Name`, `Contact`, `Region`, `Disease`, `VisitDate`) VALUES (3, 'J.K. Joshson', '789-745-8520', 'Missisaga', 'High BP', '2023-12-25');
+INSERT INTO `patientrecords`.`patients` (`Patientid`, `Name`, `Contact`, `Region`, `Disease`, `VisitDate`) VALUES (4, 'Justin Mars', '741-852-9632', 'Toronto', 'Throat Cancer', '2023-12-28');
+INSERT INTO `patientrecords`.`patients` (`Patientid`, `Name`, `Contact`, `Region`, `Disease`, `VisitDate`) VALUES (5, 'Alvin ButcherMan', '852-745-7894', 'Brampton', 'Kidney Stone', '2024-01-20');
