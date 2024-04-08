@@ -35,6 +35,7 @@ public class PatientDaoRunner {
 		// needed current patient id to update the patient update details
 		obj.updatePatientRec(7, update_pat); 
 		
+		
 		obj.deletePatientRecById(6);
 	}
 

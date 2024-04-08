@@ -25,9 +25,9 @@ public class PatientDao {
 		//jdbc:mysql://localhost:port/database_name
 		String url = "jdbc:mysql://localhost:3306/PatientRecords"; 
 		String user = "root";
-		String pwd = "12345"; // this is password for ranish
+//		String pwd = "12345"; // this is password for ranish
 		//String pwd = "your_password"; // this is password for rahul
-		//String pwd = "your_password"; // this is password for utsav
+		String pwd = "122111"; // this is password for utsav
 		
 		//load the driver
 		try {
