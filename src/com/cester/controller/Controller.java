@@ -8,17 +8,39 @@ import java.util.Scanner;
 import com.cester.dao.PatientDao;
 import com.cester.model.Patient;
 
+
+/**
+ * @author Rahul
+ * @version 1.0.3
+ */
+
+/**
+ * Controller class to handle interactions between user inputs and DAO operations.
+ */
+
 public class Controller {
+	
+	// create an instance object to interact with patient records
 	PatientDao p_dao = new PatientDao();
 	
+	// Create a Scanner object to read user input from the console
 	Scanner sc = new Scanner(System.in);
 	
+	
+    /**
+     * Method to display all patient records.
+     */
 	public void displayAll() {
 		System.out.println("\n\nWelcome to Display Patient Records Option in our Application!!!");
 		
+		// Call the displayPatientRecs() method from PatientDao to display all records
 		p_dao.displayPatientRecs();
 	}
 	
+	
+    /**
+     * Method to insert a new patient record.
+     */
 	public void insertRec() {
 		System.out.println("\n\nWelcome to Insert Patient Record Option in our Application!!!");
 		
@@ -41,16 +63,21 @@ public class Controller {
 		System.out.print("Please enter the disease of new Patient: ");
 		String disease  = sc.nextLine();
 		
-		System.out.print("Please enter the visit date of new Patient: ");
-		String visit_date  = sc.nextLine();
-		
-		// use this SimpleDateFormat class to parse visit date from string type to date type
+		// Parse the visit date value entered by the user
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date visitDate = null;
-        try {
-            visitDate = dateFormat.parse(visit_date);
-        } catch (ParseException e) {
-            e.printStackTrace();
+
+        boolean validDate = false;
+        while (!validDate) {
+            System.out.print("Please enter the new visit date of Patient (yyyy-MM-dd): ");
+            String visit_date = sc.nextLine();
+
+            try {
+                visitDate = dateFormat.parse(visit_date);
+                validDate = true;
+            } catch (ParseException e) {
+                System.out.println("Invalid date format. Please enter date in yyyy-MM-dd format.");
+            }
         }
 		
 		// Create an Patient Object to store in Database
@@ -60,6 +87,9 @@ public class Controller {
 		p_dao.insertPatientRec(pat_to_add);
 	}
 	
+	 /**
+     * Method to update a patient record.
+     */
 	public void updateRec() {
 		System.out.println("\n\nWelcome to Update Patient Record Option in our Application!!!");
 		
@@ -70,6 +100,8 @@ public class Controller {
 		// Consume the space to take String input for name after integer input id
 		sc.nextLine();
 		
+		
+		// Get user input for the new details of the patient
 		System.out.print("Please enter the new Id of Patient: ");
 		int upd_id = sc.nextInt();
 		
@@ -88,16 +120,20 @@ public class Controller {
 		System.out.print("Please enter the new disease of Patient: ");
 		String upd_disease = sc.nextLine();
 		
-		System.out.print("Please enter the new visit date of Patient: ");
-		String upd_visit_date  = sc.nextLine();
-		
-		// use this SimpleDateFormat class to parse visit date from string type to date type
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date upd_visitDate = null;
-        try {
-        	upd_visitDate = dateFormat.parse(upd_visit_date);
-        } catch (ParseException e) {
-            e.printStackTrace();
+
+        boolean validDate = false;
+        while (!validDate) {
+            System.out.print("Please enter the new visit date of Patient (yyyy-MM-dd): ");
+            String upd_visit_date = sc.nextLine();
+
+            try {
+                upd_visitDate = dateFormat.parse(upd_visit_date);
+                validDate = true;
+            } catch (ParseException e) {
+                System.out.println("Invalid date format. Please enter date in yyyy-MM-dd format.");
+            }
         }
 		        
 		// Create an Patient Object to store in Database
@@ -107,29 +143,35 @@ public class Controller {
 		p_dao.updatePatientRec(curr_id, pat_to_update);
 	}
 	
+    /**
+     * Method to find a patient record by Id.
+     */
 	public void findById() {
 		System.out.println("\n\n-------------------------------------------------------------------");
 		System.out.println("Welcome to Find Patient Record By Id Optioin in our Application!!!");
 		System.out.println("-------------------------------------------------------------------");
 		
+		// Get user input to find patient from the Id 
 		System.out.print("Please Enter the Id of Patient to Get Record From Database: ");
 		int id_to_fetch_rec = sc.nextInt();
 		
 		// pass this id to Dao Class method as an argument
-		
 		p_dao.getRecByPatientId(id_to_fetch_rec);
 	}
 	
+    /**
+     * Method to delete a patient record by ID.
+     */
 	public void deleteById() {
 		System.out.println("\n\n-------------------------------------------------------------------");
 		System.out.println("Welcome to Delete Patient Record By Id Optioin in our Application!!!");
 		System.out.println("-------------------------------------------------------------------");
 		
+		// Get user input for the ID of the patient to delete
 		System.out.print("Please Enter the Id of Patient to Delete Record From Database: ");
 		int id_to_delete_rec = sc.nextInt();
 		
 		// pass this id to Dao Class method as an argument
-		
 		p_dao.deletePatientRecById(id_to_delete_rec);
 	}
 
