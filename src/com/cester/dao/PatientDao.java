@@ -11,12 +11,23 @@ import java.util.List;
 
 import com.cester.model.Patient;
 
+/**
+ * PatientDao class for database connectivity
+ * */
+
 public class PatientDao {
 	
-	// This method returns a Connection Object
-	// It uses DriverManager CLass to setup Connection
-	// using method getConnection()
-	public Connection setupConnection() {
+	/**
+	 * This class provides methods to interact with the database table 'patients'.
+	 */
+	
+	 /**
+     * Establishes a connection to the database.
+     * 
+     * @return A Connection object representing the database connection.
+     */
+	
+	public Connection setupConnection() { // This method returns a Connection Object.It uses DriverManager CLass to setup Connection using method getConnection()
 		
 		// create a variable of Connection type
 		Connection con = null;
@@ -47,6 +58,12 @@ public class PatientDao {
 
 		return con;
 	}
+	
+    /**
+     * Retrieves all patient records from the database.
+     * 
+     * @return A list of Patient objects representing the patient records.
+     */
 	
 	public List<Patient> displayPatientRecs(){
 		List<Patient> patients = new ArrayList<>();
@@ -79,6 +96,12 @@ public class PatientDao {
 		return patients;
 	}
 	
+    /**
+     * Inserts a new patient record into the database.
+     * 
+     * @param patient_rec The Patient object representing the record to be inserted.
+     */
+	
 	public void insertPatientRec(Patient patient_rec) {
 		// call the method for connection
 		Connection con = setupConnection();
@@ -106,11 +129,24 @@ public class PatientDao {
 			else {
 				System.out.println("Try again. Error occured. It happens!");
 			}
+			
+		/**
+		 * Catch block to handle SQLExceptions that might occur during database operations.
+		 * 
+		 * @param e The SQLException object representing the exception.
+		 */	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+     * Retrieves a patient record from the database by its ID.
+     * 
+     * @param patientid_to_fetch_rec the Id of the patient to retrieve the record.
+     * @return A Patient object representing the retrieved patient record.
+     */
 	
 	public Patient getRecByPatientId(int patientid_to_fetch_rec) {
 		
@@ -139,10 +175,16 @@ public class PatientDao {
 				patient_to_fetch_byId = new Patient(rs.getInt("Patientid"), 
 						rs.getString("Name"), rs.getString("Contact"), rs.getString("Region"), 
 						rs.getString("Disease"), rs.getDate("VisitDate"));
-				
+				System.out.println(patient_to_fetch_byId);
+			} else {
+				System.out.println("\nId not found!! Please Try Again!\n");
 			}
-			System.out.println(patient_to_fetch_byId);
 			
+		/**
+		 * Catch block to handle SQLExceptions that might occur during database operations.
+		 * 
+		 * @param e The SQLException object representing the exception.
+		 */	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -151,6 +193,12 @@ public class PatientDao {
 		return patient_to_fetch_byId;
 		
 	}
+	
+	 /**
+     * Deletes a patient record from the database by its ID.
+     * 
+     * @param patientid_to_delete The ID of the patient record to delete.
+     */
 	
 	public void deletePatientRecById(int patientid_to_delete) {
 		// call setupConnection()
@@ -174,18 +222,31 @@ public class PatientDao {
 				displayPatientRecs();
 			}
 			else {
-				System.out.println("Error Occured. Try Again!");
+				System.out.println("\nId not found!! Please Try Again!\n");
 			}
 			
+		/**
+		 * Catch block to handle SQLExceptions that might occur during database operations.
+		 * 
+		 * @param e The SQLException object representing the exception.
+		 */
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+    /**
+     * Updates a patient record in the database.
+     * 
+     * @param curr_patient_id The ID of the patient record to update.
+     * @param update_patient The updated Patient object representing the new record details.
+     */
+	
 	public void updatePatientRec(int curr_patient_id, Patient update_patient) {
 		// call the method for connection
 		Connection con = setupConnection();
+		
 		
 		String sql = "UPDATE patients SET Patientid=?, Name=?, Contact=?, Region=?, Disease=?, VisitDate=? "
 				+ "WHERE Patientid=?";
@@ -205,16 +266,19 @@ public class PatientDao {
 			int status = pstmt.executeUpdate();
 			
 			if(status > 0) {
+				
 				System.out.println("Patient record updated sucessfully!");
 				displayPatientRecs();
 			}
 			else {
-				System.out.println("Try again. Error occured. It happens!");
+				System.out.println("\nId not found!! Please Try Again!\n");
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
 	
 }
