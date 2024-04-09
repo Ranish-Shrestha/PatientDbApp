@@ -11,7 +11,6 @@ import com.cester.controller.Controller;
 
 public class UserMenu {
 	
-	
     /**
      * The main method is method starts and runs the application .
      * It displays a menu and handles user input to perform various operations on patient records.
